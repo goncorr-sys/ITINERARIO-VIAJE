@@ -1,0 +1,10 @@
+{
+  "name": "Luna de miel 2026",
+  "short_name": "Luna de miel",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#0e1b25",
+  "theme_color": "#0e1b25",
+  "description": "Itinerario móvil editable con ciudades, gastos, estados y planificación turística.",
+  "icons": []
+}

@@ -1,0 +1,284 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="theme-color" content="#0e1b25">
+    <title>Luna de miel 2026</title>
+    <link rel="manifest" href="manifest.webmanifest">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <nav class="top-nav" aria-label="Navegación principal">
+          <button class="nav-button is-active" data-target="home" type="button">Resumen</button>
+          <button class="nav-button" data-target="days" type="button">Días</button>
+          <button class="nav-button" data-target="cities" type="button">Ciudades</button>
+          <button class="nav-button" data-target="calendar" type="button">Calendario</button>
+          <button class="nav-button" data-target="costs" type="button">Gastos</button>
+          <button class="nav-button" data-target="plan" type="button">Plan</button>
+        </nav>
+        <button class="icon-button" id="themeToggle" type="button" aria-label="Cambiar tema" title="Cambiar tema">
+          <span aria-hidden="true">◐</span>
+        </button>
+      </header>
+
+      <main>
+        <section class="view is-active" data-view="home" aria-labelledby="homeTitle">
+          <div class="hero">
+            <img class="hero-image" id="heroImage" alt="Gonzalo y Flor">
+            <p class="eyebrow">14 ago - 08 sep</p>
+            <h2 id="homeTitle">Luna de miel 2026</h2>
+            <p>Después de tantos momentos compartidos, sueños, desafíos y caminos recorridos… llegó el día que tantas veces imaginamos 🤍</p>
+            <button class="ghost-button inline-action" data-jump="source" type="button">Ver tabla original</button>
+          </div>
+
+          <div class="stats-grid" id="statsGrid"></div>
+
+          <section class="section-block">
+            <div class="section-heading">
+              <h3>Ruta principal</h3>
+              <span id="routeCount"></span>
+            </div>
+            <div class="route-strip" id="routeStrip"></div>
+          </section>
+
+          <section class="section-block">
+            <div class="section-heading">
+              <h3>Presupuesto por categoría</h3>
+              <span>% del total</span>
+            </div>
+            <div class="budget-chart" id="budgetChart"></div>
+          </section>
+
+          <section class="section-block">
+            <div class="section-heading">
+              <h3>Estadías por ciudad</h3>
+              <span>Según fechas del Excel</span>
+            </div>
+            <div class="stay-grid" id="stayGrid"></div>
+          </section>
+
+          <section class="section-block">
+            <div class="section-heading">
+              <h3>Recorrida itinerario</h3>
+              <span>Google My Maps</span>
+            </div>
+            <div class="map-panel">
+              <iframe
+                title="Mapa Luna de miel 2026"
+                src="https://www.google.com/maps/d/embed?mid=14j3AHr527xdcIwP_ZYK38jbTXj5TErY&ehbc=2E312F"
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade">
+              </iframe>
+              <a class="primary-link" href="https://www.google.com/maps/d/u/0/edit?mid=14j3AHr527xdcIwP_ZYK38jbTXj5TErY&usp=sharing" target="_blank" rel="noreferrer">Abrir mapa completo</a>
+            </div>
+          </section>
+
+          <section class="section-block">
+            <div class="section-heading">
+              <h3>Pendientes clave</h3>
+              <span>Para definir</span>
+            </div>
+            <div id="reviewList" class="review-list"></div>
+          </section>
+        </section>
+
+        <section class="view" data-view="days" aria-labelledby="daysTitle">
+          <div class="section-heading sticky-heading">
+            <div>
+              <p class="eyebrow">Agenda diaria</p>
+              <h2 id="daysTitle">Días del viaje</h2>
+            </div>
+            <div class="button-group">
+              <button class="ghost-button" id="clearFilters" type="button">Limpiar</button>
+              <button class="ghost-button" id="resetEdits" type="button">Restaurar</button>
+            </div>
+          </div>
+          <div class="filters">
+            <label class="search-box">
+              <span>Buscar</span>
+              <input id="searchInput" type="search" placeholder="Ciudad, país, categoría...">
+            </label>
+            <div class="chip-row" id="categoryFilters"></div>
+          </div>
+          <div class="timeline" id="dayList"></div>
+        </section>
+
+        <section class="view" data-view="cities" aria-labelledby="citiesTitle">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Navegación por ciudad</p>
+              <h2 id="citiesTitle">Ciudades</h2>
+            </div>
+          </div>
+          <div class="city-grid" id="cityGrid"></div>
+        </section>
+
+        <section class="view" data-view="calendar" aria-labelledby="calendarTitle">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Cuenta regresiva</p>
+              <h2 id="calendarTitle">Calendario</h2>
+            </div>
+            <span class="calendar-count" id="calendarCount"></span>
+          </div>
+          <div class="calendar-legend">
+            <span><i class="legend-dot trip"></i> Viaje</span>
+            <span><i class="legend-dot paid"></i> Pago</span>
+            <span><i class="legend-dot pending"></i> Pendiente</span>
+            <span><i class="legend-line"></i> Día pasado</span>
+          </div>
+          <div class="calendar-grid" id="calendarGrid"></div>
+        </section>
+
+        <section class="view" data-view="costs" aria-labelledby="costsTitle">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Presupuesto</p>
+              <h2 id="costsTitle">Gastos en USD</h2>
+            </div>
+          </div>
+          <div class="cost-summary" id="costSummary"></div>
+          <div class="cost-list" id="costList"></div>
+        </section>
+
+        <section class="view" data-view="plan" aria-labelledby="planTitle">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Próxima etapa</p>
+              <h2 id="planTitle">Lugares turísticos</h2>
+            </div>
+            <button class="primary-button" id="exportPlan" type="button">Exportar</button>
+          </div>
+          <div class="planner-layout">
+            <form class="planner-form" id="placeForm">
+              <label>
+                Día
+                <select id="placeDay"></select>
+              </label>
+              <label>
+                Lugar
+                <input id="placeName" type="text" placeholder="Ej: Museo, barrio, excursión" required>
+              </label>
+              <label>
+                Categoría
+                <input id="placeCategory" type="text" list="categoryOptions" placeholder="Excursiones, comida, compras...">
+              </label>
+              <label>
+                Horario
+                <input id="placeTime" type="text" placeholder="Mañana, 10:30, tarde...">
+              </label>
+              <label>
+                Nota
+                <textarea id="placeNote" rows="3" placeholder="Entradas, dirección, reserva, prioridad..."></textarea>
+              </label>
+              <button class="primary-button" type="submit">Agregar lugar</button>
+            </form>
+            <div class="tourism-list" id="tourismList"></div>
+          </div>
+        </section>
+
+        <section class="view" data-view="source" aria-labelledby="sourceTitle">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Excel original</p>
+              <h2 id="sourceTitle">Datos preservados</h2>
+            </div>
+            <button class="ghost-button" data-jump="home" type="button">Volver</button>
+          </div>
+          <div class="source-table-wrap">
+            <table class="source-table" id="sourceTable"></table>
+          </div>
+        </section>
+      </main>
+      <dialog class="edit-dialog" id="editDialog">
+        <form class="edit-form" id="editForm" method="dialog">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Editar item</p>
+              <h2 id="editTitle">Ajustar itinerario</h2>
+            </div>
+            <button class="icon-button" id="closeEdit" type="button" aria-label="Cerrar">×</button>
+          </div>
+          <input id="editId" type="hidden">
+          <div class="form-grid">
+            <label>Ciudad
+              <input id="editCity" type="text">
+            </label>
+            <label>Fecha
+              <input id="editDate" type="date">
+            </label>
+            <label>Categoría
+              <input id="editCategory" type="text" list="categoryOptions">
+            </label>
+            <label>USD
+              <input id="editUsd" type="number" min="0" step="0.01">
+            </label>
+            <label>Estado
+              <select id="editStatus">
+                <option value="PENDIENTE">PENDIENTE</option>
+                <option value="PAGO">PAGO</option>
+                <option value="CONFIRMADO">CONFIRMADO</option>
+                <option value="ESTIMADO">ESTIMADO</option>
+              </select>
+            </label>
+            <label>Pagó
+              <input id="editPayer" type="text">
+            </label>
+            <label>Hora salida
+              <input id="editDepartureTime" type="time">
+            </label>
+            <label>Lugar salida
+              <input id="editDeparturePlace" type="text">
+            </label>
+            <label>Hora llegada
+              <input id="editArrivalTime" type="time">
+            </label>
+            <label>Lugar llegada
+              <input id="editArrivalPlace" type="text">
+            </label>
+            <label class="full-field">Nota
+              <textarea id="editNote" rows="3"></textarea>
+            </label>
+          </div>
+          <p class="form-note">Los cambios se guardan en este dispositivo. Sirve para probar fechas y valores antes de pasarme la versión final.</p>
+          <div class="dialog-actions">
+            <button class="ghost-button" id="cancelEdit" type="button">Cancelar</button>
+            <button class="primary-button" type="submit">Guardar cambios</button>
+          </div>
+        </form>
+      </dialog>
+      <dialog class="edit-dialog" id="calendarDialog">
+        <div class="edit-form calendar-detail">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Detalle del día</p>
+              <h2 id="calendarDetailTitle">Calendario</h2>
+            </div>
+            <button class="icon-button" id="closeCalendarDetail" type="button" aria-label="Cerrar">×</button>
+          </div>
+          <div id="calendarDetailBody"></div>
+        </div>
+      </dialog>
+      <dialog class="edit-dialog" id="cityDialog">
+        <div class="edit-form calendar-detail">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Detalle ciudad</p>
+              <h2 id="cityDetailTitle">Ciudad</h2>
+            </div>
+            <button class="icon-button" id="closeCityDetail" type="button" aria-label="Cerrar">×</button>
+          </div>
+          <div id="cityDetailBody"></div>
+        </div>
+      </dialog>
+      <datalist id="categoryOptions"></datalist>
+    </div>
+
+    <script src="data-v19.js"></script>
+    <script src="hero-image-v19.js"></script>
+    <script src="app-v19.js"></script>
+  </body>
+</html>
